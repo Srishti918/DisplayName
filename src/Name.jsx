@@ -4,9 +4,15 @@ const Name = () => {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [result, setResult] = useState("");
+  const [error,setError] = useState("");
   function handleSubmit(e) {
      e.preventDefault();
-    setResult("Full Name: " + fName + " " + lName);
+     if (!fName || !/^[A-Za-z\s]+$/.test(fName) || !lName || !/^[A-Za-z\s]+$/.test(lName)) {
+      setError('Please enter a valid full name (only letters and spaces)');
+    } else {
+      setResult("Full Name: " + fName + " " + lName);
+    }
+    
   }
 
   return (
@@ -37,21 +43,13 @@ const Name = () => {
         />
       
       <br />
-
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <button type="submit" value="Submit" >
         Submit
       </button>
       <div>{result}</div>
     </form>
-  //   <form>
-  //   <label htmlFor="name">Name:</label>
-  //   <input type="text" id="name" name="name" required />
-
-  //   <label htmlFor="email">Email:</label>
-  //   <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" />
-
-  //   <button type="submit">Submit</button>
-  // </form>
+ 
   );
 };
 
